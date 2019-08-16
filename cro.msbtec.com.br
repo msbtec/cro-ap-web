@@ -1,0 +1,21 @@
+server {
+        listen 80;
+	listen [::]80;
+        root /var/www/cro/public;
+        index index.php index.html index.htm index.nginx-debian.html;
+        server_name cro.msbtec.com.br;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        }
+
+        location ~ / {
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+
+}
