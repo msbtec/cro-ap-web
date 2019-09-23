@@ -15,7 +15,7 @@ class CategoriaProfissionalApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('categoria_profissional_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('categoria_profissional_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new CategoriaProfissionalResource(CategoriaProfissional::all());
     }
@@ -31,7 +31,7 @@ class CategoriaProfissionalApiController extends Controller
 
     public function show(CategoriaProfissional $categoriaProfissional)
     {
-        abort_if(Gate::denies('categoria_profissional_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('categoria_profissional_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new CategoriaProfissionalResource($categoriaProfissional);
     }

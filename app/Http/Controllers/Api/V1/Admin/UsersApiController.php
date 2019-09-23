@@ -15,7 +15,7 @@ class UsersApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new UserResource(User::with(['roles'])->get());
     }
@@ -29,10 +29,14 @@ class UsersApiController extends Controller
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
     }
-
+    public function getDados(Request $request) {
+        $dados = $request->login;
+        $user = User::where('email',$dados)->first();
+        return $user;
+    }
     public function show(User $user)
     {
-        abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new UserResource($user->load(['roles']));
     }

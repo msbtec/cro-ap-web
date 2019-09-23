@@ -21,7 +21,7 @@ class StoreEventoRequest extends FormRequest
         return [
             'titulo' => [
                 'min:1',
-                'max:40',
+                'max:150',
                 'required',
             ],
             'data'   => [

@@ -15,9 +15,11 @@ class ParceiroApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('parceiro_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('parceiro_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ParceiroResource(Parceiro::with(['categoria'])->get());
+        $parceiros = new ParceiroResource(Parceiro::with(['categoria'])->get());
+
+        return $parceiros;
     }
 
     public function store(StoreParceiroRequest $request)
@@ -32,7 +34,7 @@ class ParceiroApiController extends Controller
 
     public function show(Parceiro $parceiro)
     {
-        abort_if(Gate::denies('parceiro_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('parceiro_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new ParceiroResource($parceiro->load(['categoria']));
     }

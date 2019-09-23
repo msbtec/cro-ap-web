@@ -20,6 +20,7 @@ class Parceiro extends Model
     protected $fillable = [
         'nome',
         'ativo',
+        'contato',
         'detalhes',
         'endereco',
         'created_at',

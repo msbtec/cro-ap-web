@@ -15,7 +15,7 @@ class CategoriaApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('categorium_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('categorium_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new CategoriumResource(Categorium::all());
     }
@@ -31,7 +31,7 @@ class CategoriaApiController extends Controller
 
     public function show(Categorium $categorium)
     {
-        abort_if(Gate::denies('categorium_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('categorium_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new CategoriumResource($categorium);
     }

@@ -44,6 +44,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.parceiro.fields.contato') }}
+                        </th>
+                        <td>
+                            {!! $parceiro->contato !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.parceiro.fields.ativo') }}
                         </th>
                         <td>

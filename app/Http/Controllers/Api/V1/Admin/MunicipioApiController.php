@@ -15,10 +15,32 @@ class MunicipioApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('municipio_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('municipio_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new MunicipioResource(Municipio::all());
+        $municipios = Municipio::all();
+
+        
+        $municipios = $municipios->toArray();
+
+        $municipios = $this->utf8_converter($municipios);
+
+        return $municipios;
+
+        //return new MunicipioResource(Municipio::all());
     }
+
+    public function utf8_converter($array)
+    {
+        array_walk_recursive($array, function(&$item, $key){
+        //if(!mb_detect_dcoding($item, 'utf-8', true)){
+                $item = utf8_encode($item);
+        //}
+    });
+
+    return $array;
+    }
+
+
 
     public function store(StoreMunicipioRequest $request)
     {
@@ -31,7 +53,7 @@ class MunicipioApiController extends Controller
 
     public function show(Municipio $municipio)
     {
-        abort_if(Gate::denies('municipio_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('municipio_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new MunicipioResource($municipio);
     }

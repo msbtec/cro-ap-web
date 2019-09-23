@@ -24,4 +24,9 @@ class CategoriaProfissional extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function profissionals()
+    {
+        return $this->hasMany(Profissional::class, 'categoria_id', 'id');
+    }
 }

@@ -35,22 +35,19 @@
                             {{ trans('cruds.categoriaProfissional.fields.sigla') }}
                         </th>
                         <th>
-                            {{ trans('cruds.profissional.fields.cpf') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.profissional.fields.fone_2') }}
                         </th>
                         <th>
                             {{ trans('cruds.profissional.fields.foto') }}
                         </th>
                         <th>
-                            {{ trans('cruds.profissional.fields.bairro') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.profissional.fields.municipio') }}
                         </th>
                         <th>
-                            {{ trans('cruds.profissional.fields.tipo_endereco') }}
+                            {{ trans('cruds.profissional.fields.especialidades') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.profissional.fields.habilitacoes') }}
                         </th>
                         <th>
                             &nbsp;
@@ -76,9 +73,6 @@
                                 {{ $profissional->categoria->sigla ?? '' }}
                             </td>
                             <td>
-                                {{ $profissional->cpf ?? '' }}
-                            </td>
-                            <td>
                                 {{ $profissional->fone_2 ?? '' }}
                             </td>
                             <td>
@@ -89,13 +83,17 @@
                                 @endif
                             </td>
                             <td>
-                                {{ $profissional->bairro ?? '' }}
+                                {{ $profissional->municipio->nome ?? '' }}
                             </td>
                             <td>
-                                {{ $profissional->municipio ?? '' }}
+                                @foreach($profissional->especialidades as $key => $item)
+                                    <span class="badge badge-info">{{ $item->nome }}</span>
+                                @endforeach
                             </td>
                             <td>
-                                {{ App\Profissional::TIPO_ENDERECO_SELECT[$profissional->tipo_endereco] ?? '' }}
+                                @foreach($profissional->habilitacoes as $key => $item)
+                                    <span class="badge badge-info">{{ $item->nome }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('profissional_show')
@@ -164,7 +162,7 @@
 @endcan
 
   $.extend(true, $.fn.dataTable.defaults, {
-    order: [[ 1, 'desc' ]],
+    order: [[ 2, 'asc' ]],
     pageLength: 100,
   });
   $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })

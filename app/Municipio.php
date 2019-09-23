@@ -23,4 +23,9 @@ class Municipio extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function profissionals()
+    {
+        return $this->hasMany(Profissional::class, 'municipio_id', 'id');
+    }
 }

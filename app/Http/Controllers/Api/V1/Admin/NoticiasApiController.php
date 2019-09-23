@@ -10,14 +10,51 @@ use App\Noticium;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Media;
 
 class NoticiasApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('noticium_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('noticium_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $noticia = Noticium::all();
+        foreach($noticia as $not) {
+            $media = $not->getFotosAttribute();
+            $capa = $not->getFotoCapaAttribute();
+            $not->media = $media;
+            $not->capa = $capa;
+        }
+        return $noticia;
+    }
 
-        return new NoticiumResource(Noticium::all());
+    public function getNoticias($pagina)
+    {
+        //abort_if(Gate::denies('noticium_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $number = 20;
+        $pagina = $pagina-1;
+        $noticia = Noticium::orderBy('dt_publicacao','DESC')->skip($pagina*$number)->take($number)->get();
+        foreach($noticia as $not) {
+            $media = $not->getFotosAttribute();
+            $capa = $not->getFotoCapaAttribute();
+            $not->media = $media;
+            $not->capa = $capa;
+        }
+        return $noticia;
+    }
+    
+
+
+    public function index_home()
+    {
+        //abort_if(Gate::denies('noticium_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $noticia = Noticium::orderBy('dt_publicacao','DESC')->limit(5)->get();
+        foreach($noticia as $not) {
+            $media = $not->getFotosAttribute();
+            $capa = $not->getFotoCapaAttribute();
+            $not->media = $media;
+            $not->capa = $capa;
+        }
+        return $noticia;
     }
 
     public function store(StoreNoticiumRequest $request)
@@ -31,9 +68,13 @@ class NoticiasApiController extends Controller
 
     public function show(Noticium $noticium)
     {
-        abort_if(Gate::denies('noticium_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('noticium_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $noticia = Noticium::find($noticium->id);
+        $noticia->fotos = $noticia->getFotosAttribute();
+        $noticia->capa = $noticia->getFotoCapaAttribute();        
 
-        return new NoticiumResource($noticium);
+        return $noticia;
+        //return new NoticiumResource($noticium);
     }
 
     public function update(UpdateNoticiumRequest $request, Noticium $noticium)

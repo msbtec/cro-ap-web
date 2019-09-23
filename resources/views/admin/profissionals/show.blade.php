@@ -36,18 +36,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.profissional.fields.categoria') }}
-                        </th>
-                        <td>
-                            {{ $profissional->categoria->nome ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.profissional.fields.cpf') }}
                         </th>
                         <td>
                             {{ $profissional->cpf }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.profissional.fields.categoria') }}
+                        </th>
+                        <td>
+                            {{ $profissional->categoria->nome ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -104,6 +104,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.profissional.fields.municipio') }}
+                        </th>
+                        <td>
+                            {{ $profissional->municipio->nome ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.profissional.fields.logradouro') }}
                         </th>
                         <td>
@@ -136,18 +144,30 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.profissional.fields.municipio') }}
-                        </th>
-                        <td>
-                            {{ $profissional->municipio }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.profissional.fields.tipo_endereco') }}
                         </th>
                         <td>
                             {{ App\Profissional::TIPO_ENDERECO_SELECT[$profissional->tipo_endereco] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Especialidades
+                        </th>
+                        <td>
+                            @foreach($profissional->especialidades as $id => $especialidades)
+                                <span class="label label-info label-many">{{ $especialidades->nome }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Habilitações
+                        </th>
+                        <td>
+                            @foreach($profissional->habilitacoes as $id => $habilitacoes)
+                                <span class="label label-info label-many">{{ $habilitacoes->nome }}</span>
+                            @endforeach
                         </td>
                     </tr>
                 </tbody>

@@ -46,6 +46,18 @@
                     {{ trans('cruds.parceiro.fields.endereco_helper') }}
                 </p>
             </div>
+            <div class="form-group {{ $errors->has('contato') ? 'has-error' : '' }}">
+                <label for="contato">{{ trans('cruds.parceiro.fields.contato') }}</label>
+                <textarea id="contato" name="contato" class="form-control ">{{ old('contato', isset($parceiro) ? $parceiro->contato : '') }}</textarea>
+                @if($errors->has('contato'))
+                    <p class="help-block">
+                        {{ $errors->first('contato') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.parceiro.fields.contato_helper') }}
+                </p>
+            </div>
             <div class="form-group {{ $errors->has('ativo') ? 'has-error' : '' }}">
                 <label for="ativo">{{ trans('cruds.parceiro.fields.ativo') }}</label>
                 <input name="ativo" type="hidden" value="0">

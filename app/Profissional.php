@@ -36,18 +36,18 @@ class Profissional extends Model implements HasMedia
         'cpf',
         'cro',
         'nome',
-        'bairro',
+        'numero',
         'fone_1',
         'fone_2',
         'fone_3',
-        'numero',
-        'municipio',
+        'bairro',
         'updated_at',
         'created_at',
-        'logradouro',
         'deleted_at',
+        'logradouro',
         'complemento',
         'categoria_id',
+        'municipio_id',
         'tipo_endereco',
         'data_nascimento',
     ];
@@ -80,6 +80,22 @@ class Profissional extends Model implements HasMedia
             $file->url = $file->getUrl();
         }
 
+
         return $file;
+    }
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class, 'municipio_id');
+    }
+
+    public function especialidades()
+    {
+        return $this->belongsToMany(Especialidade::class);
+    }
+
+    public function habilitacoes()
+    {
+        return $this->belongsToMany(Habilitacao::class);
     }
 }

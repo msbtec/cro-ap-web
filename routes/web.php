@@ -57,8 +57,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Categoriaprofissionals
     Route::delete('categoria-profissionals/destroy', 'CategoriaProfissionalController@massDestroy')->name('categoria-profissionals.massDestroy');
     Route::resource('categoria-profissionals', 'CategoriaProfissionalController');
-
+            
     // Municipios
     Route::delete('municipios/destroy', 'MunicipioController@massDestroy')->name('municipios.massDestroy');
     Route::resource('municipios', 'MunicipioController');
+
+
+
+        // Denuncia
+    Route::delete('denuncia/destroy', 'DenunciaController@massDestroy')->name('denuncia.massDestroy');
+    Route::resource('denuncia', 'DenunciaController');
+
+    // Nota
+    Route::delete('nota/destroy', 'NotaController@massDestroy')->name('nota.massDestroy');
+    Route::post('nota/media', 'NotaController@storeMedia')->name('nota.storeMedia');
+    Route::resource('nota', 'NotaController');
+
+    // Mensagems
+    Route::delete('mensagems/destroy', 'MensagemController@massDestroy')->name('mensagems.massDestroy');
+    Route::resource('mensagems', 'MensagemController');
 });

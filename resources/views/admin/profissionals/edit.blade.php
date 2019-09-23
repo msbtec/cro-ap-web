@@ -34,6 +34,18 @@
                     {{ trans('cruds.profissional.fields.cro_helper') }}
                 </p>
             </div>
+            <div class="form-group {{ $errors->has('cpf') ? 'has-error' : '' }}">
+                <label for="cpf">{{ trans('cruds.profissional.fields.cpf') }}*</label>
+                <input type="text" id="cpf" name="cpf" class="form-control" value="{{ old('cpf', isset($profissional) ? $profissional->cpf : '') }}" required>
+                @if($errors->has('cpf'))
+                    <p class="help-block">
+                        {{ $errors->first('cpf') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.profissional.fields.cpf_helper') }}
+                </p>
+            </div>
             <div class="form-group {{ $errors->has('categoria_id') ? 'has-error' : '' }}">
                 <label for="categoria">{{ trans('cruds.profissional.fields.categoria') }}*</label>
                 <select name="categoria_id" id="categoria" class="form-control select2" required>
@@ -46,18 +58,6 @@
                         {{ $errors->first('categoria_id') }}
                     </p>
                 @endif
-            </div>
-            <div class="form-group {{ $errors->has('cpf') ? 'has-error' : '' }}">
-                <label for="cpf">{{ trans('cruds.profissional.fields.cpf') }}*</label>
-                <input type="number" id="cpf" name="cpf" class="form-control" value="{{ old('cpf', isset($profissional) ? $profissional->cpf : '') }}" step="1" required>
-                @if($errors->has('cpf'))
-                    <p class="help-block">
-                        {{ $errors->first('cpf') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.profissional.fields.cpf_helper') }}
-                </p>
             </div>
             <div class="form-group {{ $errors->has('data_nascimento') ? 'has-error' : '' }}">
                 <label for="data_nascimento">{{ trans('cruds.profissional.fields.data_nascimento') }}*</label>
@@ -133,6 +133,19 @@
                     {{ trans('cruds.profissional.fields.cep_helper') }}
                 </p>
             </div>
+            <div class="form-group {{ $errors->has('municipio_id') ? 'has-error' : '' }}">
+                <label for="municipio">{{ trans('cruds.profissional.fields.municipio') }}</label>
+                <select name="municipio_id" id="municipio" class="form-control select2">
+                    @foreach($municipios as $id => $municipio)
+                        <option value="{{ $id }}" {{ (isset($profissional) && $profissional->municipio ? $profissional->municipio->id : old('municipio_id')) == $id ? 'selected' : '' }}>{{ $municipio }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('municipio_id'))
+                    <p class="help-block">
+                        {{ $errors->first('municipio_id') }}
+                    </p>
+                @endif
+            </div>
             <div class="form-group {{ $errors->has('logradouro') ? 'has-error' : '' }}">
                 <label for="logradouro">{{ trans('cruds.profissional.fields.logradouro') }}</label>
                 <input type="text" id="logradouro" name="logradouro" class="form-control" value="{{ old('logradouro', isset($profissional) ? $profissional->logradouro : '') }}">
@@ -181,18 +194,6 @@
                     {{ trans('cruds.profissional.fields.bairro_helper') }}
                 </p>
             </div>
-            <div class="form-group {{ $errors->has('municipio') ? 'has-error' : '' }}">
-                <label for="municipio">{{ trans('cruds.profissional.fields.municipio') }}</label>
-                <input type="text" id="municipio" name="municipio" class="form-control" value="{{ old('municipio', isset($profissional) ? $profissional->municipio : '') }}">
-                @if($errors->has('municipio'))
-                    <p class="help-block">
-                        {{ $errors->first('municipio') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.profissional.fields.municipio_helper') }}
-                </p>
-            </div>
             <div class="form-group {{ $errors->has('tipo_endereco') ? 'has-error' : '' }}">
                 <label for="tipo_endereco">{{ trans('cruds.profissional.fields.tipo_endereco') }}</label>
                 <select id="tipo_endereco" name="tipo_endereco" class="form-control">
@@ -206,6 +207,42 @@
                         {{ $errors->first('tipo_endereco') }}
                     </p>
                 @endif
+            </div>
+            <div class="form-group {{ $errors->has('especialidades') ? 'has-error' : '' }}">
+                <label for="especialidades">{{ trans('cruds.profissional.fields.especialidades') }}
+                    <span class="btn btn-info btn-xs select-all">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all">{{ trans('global.deselect_all') }}</span></label>
+                <select name="especialidades[]" id="especialidades" class="form-control select2" multiple="multiple">
+                    @foreach($especialidades as $id => $especialidades)
+                        <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || isset($profissional) && $profissional->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidades }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('especialidades'))
+                    <p class="help-block">
+                        {{ $errors->first('especialidades') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.profissional.fields.especialidades_helper') }}
+                </p>
+            </div>
+            <div class="form-group {{ $errors->has('habilitacoes') ? 'has-error' : '' }}">
+                <label for="habilitacoes">{{ trans('cruds.profissional.fields.habilitacoes') }}
+                    <span class="btn btn-info btn-xs select-all">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all">{{ trans('global.deselect_all') }}</span></label>
+                <select name="habilitacoes[]" id="habilitacoes" class="form-control select2" multiple="multiple">
+                    @foreach($habilitacoes as $id => $habilitacoes)
+                        <option value="{{ $id }}" {{ (in_array($id, old('habilitacoes', [])) || isset($profissional) && $profissional->habilitacoes->contains($id)) ? 'selected' : '' }}>{{ $habilitacoes }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('habilitacoes'))
+                    <p class="help-block">
+                        {{ $errors->first('habilitacoes') }}
+                    </p>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.profissional.fields.habilitacoes_helper') }}
+                </p>
             </div>
             <div>
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">

@@ -19,60 +19,71 @@ class UpdateProfissionalRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome'            => [
+            'nome'             => [
                 'min:0',
                 'max:255',
                 'required',
             ],
-            'cro'             => [
+            'cro'              => [
                 'min:0',
                 'max:10',
                 'required',
             ],
-            'categoria_id'    => [
+            'categoria_id'     => [
                 'required',
                 'integer',
             ],
-            'cpf'             => [
+            'cpf'              => [
                 'required',
-                'digits_between:0,10',
             ],
-            'data_nascimento' => [
+            'data_nascimento'  => [
                 'required',
                 'date_format:' . config('panel.date_format'),
             ],
-            'fone_1'          => [
+            'fone_1'           => [
                 'min:0',
                 'max:20',
             ],
-            'fone_2'          => [
+            'fone_2'           => [
                 'min:0',
                 'max:15',
                 'required',
             ],
-            'fone_3'          => [
+            'fone_3'           => [
                 'min:0',
                 'max:15',
             ],
-            'cep'             => [
+            'cep'              => [
                 'min:0',
                 'max:10',
             ],
-            'logradouro'      => [
+            'logradouro'       => [
                 'min:0',
                 'max:255',
             ],
-            'numero'          => [
+            'numero'           => [
                 'min:0',
                 'max:10',
             ],
-            'complemento'     => [
+            'complemento'      => [
                 'min:0',
                 'max:255',
             ],
-            'bairro'          => [
+            'bairro'           => [
                 'min:0',
                 'max:255',
+            ],
+            'especialidades.*' => [
+                'integer',
+            ],
+            'especialidades'   => [
+                'array',
+            ],
+            'habilitacoes.*'   => [
+                'integer',
+            ],
+            'habilitacoes'     => [
+                'array',
             ],
         ];
     }

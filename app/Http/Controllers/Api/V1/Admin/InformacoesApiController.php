@@ -15,7 +15,7 @@ class InformacoesApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('informaco_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('informaco_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new InformacoResource(Informaco::all());
     }
@@ -31,7 +31,7 @@ class InformacoesApiController extends Controller
 
     public function show(Informaco $informaco)
     {
-        abort_if(Gate::denies('informaco_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('informaco_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new InformacoResource($informaco);
     }

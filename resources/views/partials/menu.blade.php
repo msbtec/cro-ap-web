@@ -237,6 +237,57 @@
                         </ul>
                     </li>
                 @endcan
+                @can('contato_access')
+                    <li class="nav-item has-treeview {{ request()->is('admin/denuncia*') ? 'menu-open' : '' }} {{ request()->is('admin/nota*') ? 'menu-open' : '' }} {{ request()->is('admin/mensagems*') ? 'menu-open' : '' }}">
+                        <a class="nav-link nav-dropdown-toggle" href="#">
+                            <i class="fa-fw far fa-comment">
+
+                            </i>
+                            <p>
+                                <span>{{ trans('cruds.contato.title') }}</span>
+                                <i class="right fa fa-fw fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('denuncium_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.denuncia.index") }}" class="nav-link {{ request()->is('admin/denuncia') || request()->is('admin/denuncia/*') ? 'active' : '' }}">
+                                        <i class="fa-fw fas fa-exclamation-triangle">
+
+                                        </i>
+                                        <p>
+                                            <span>{{ trans('cruds.denuncium.title') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('notum_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.nota.index") }}" class="nav-link {{ request()->is('admin/nota') || request()->is('admin/nota/*') ? 'active' : '' }}">
+                                        <i class="fa-fw far fa-sticky-note">
+
+                                        </i>
+                                        <p>
+                                            <span>{{ trans('cruds.notum.title') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('mensagem_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.mensagems.index") }}" class="nav-link {{ request()->is('admin/mensagems') || request()->is('admin/mensagems/*') ? 'active' : '' }}">
+                                        <i class="fa-fw fas fa-cogs">
+
+                                        </i>
+                                        <p>
+                                            <span>{{ trans('cruds.mensagem.title') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
                 <li class="nav-item">
                     <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                         <p>

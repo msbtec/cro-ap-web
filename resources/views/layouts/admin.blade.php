@@ -124,7 +124,7 @@
   $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
-      url: languages.{{ app()->getLocale() }}
+      url: languages['{{ app()->getLocale() }}']
     },
     columnDefs: [{
         orderable: false,

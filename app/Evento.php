@@ -33,7 +33,7 @@ class Evento extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null)
     {
-        $this->addMediaConversion('thumb')->width(50)->height(50);
+        //$this->addMediaConversion('thumb')->width(50)->height(50);
     }
 
     public function getDataAttribute($value)
@@ -48,12 +48,12 @@ class Evento extends Model implements HasMedia
 
     public function getImagensAttribute()
     {
-        $files = $this->getMedia('imagens');
+        /*$files = $this->getMedia('imagens');
 
         $files->each(function ($item) {
             $item->url = $item->getUrl();
         });
 
-        return $files;
+        return $files;*/
     }
 }

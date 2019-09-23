@@ -24,4 +24,9 @@ class Especialidade extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function profissionals()
+    {
+        return $this->belongsToMany(Profissional::class);
+    }
 }

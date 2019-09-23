@@ -15,7 +15,7 @@ class HabilitacaoApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('habilitacao_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('habilitacao_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new HabilitacaoResource(Habilitacao::all());
     }
@@ -31,7 +31,7 @@ class HabilitacaoApiController extends Controller
 
     public function show(Habilitacao $habilitacao)
     {
-        abort_if(Gate::denies('habilitacao_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('habilitacao_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new HabilitacaoResource($habilitacao);
     }
