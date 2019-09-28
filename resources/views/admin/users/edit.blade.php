@@ -36,7 +36,7 @@
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                 <label for="password">{{ trans('cruds.user.fields.password') }}</label>
-                <input type="password" id="password" name="password" class="form-control" required>
+                <input type="password" id="password" name="password" class="form-control">
                 @if($errors->has('password'))
                     <p class="help-block">
                         {{ $errors->first('password') }}
@@ -64,10 +64,25 @@
                     {{ trans('cruds.user.fields.roles_helper') }}
                 </p>
             </div>
+            <div class="form-group {{ $errors->has('id_profissional_id') ? 'has-error' : '' }}">
+                <label for="id_profissional">{{ trans('cruds.user.fields.id_profissional') }}</label>
+                <select name="id_profissional_id" id="id_profissional" class="form-control select2">
+                    @foreach($id_profissionals as $id => $id_profissional)
+                        <option value="{{ $id }}" {{ (isset($user) && $user->id_profissional ? $user->id_profissional->id : old('id_profissional_id')) == $id ? 'selected' : '' }}>{{ $id_profissional }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('id_profissional_id'))
+                    <p class="help-block">
+                        {{ $errors->first('id_profissional_id') }}
+                    </p>
+                @endif
+            </div>
             <div>
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
+
+
     </div>
 </div>
 @endsection

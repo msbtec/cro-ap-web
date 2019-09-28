@@ -19,7 +19,6 @@ class User extends Authenticatable
 
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     protected $dates = [
@@ -38,6 +37,8 @@ class User extends Authenticatable
         'deleted_at',
         'remember_token',
         'email_verified_at',
+        'remember_token',
+        'id_profissional_id',
     ];
 
     public function getEmailVerifiedAtAttribute($value)
@@ -65,5 +66,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function id_profissional()
+    {
+        return $this->belongsTo(Profissional::class, 'id_profissional_id');
     }
 }

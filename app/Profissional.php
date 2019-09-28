@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use App\CategoriaProfissional;
+
 
 class Profissional extends Model implements HasMedia
 {
@@ -17,6 +19,7 @@ class Profissional extends Model implements HasMedia
 
     protected $appends = [
         'foto',
+        'tipo',
     ];
 
     const TIPO_ENDERECO_SELECT = [
@@ -50,11 +53,19 @@ class Profissional extends Model implements HasMedia
         'municipio_id',
         'tipo_endereco',
         'data_nascimento',
+        'categoria_id',
+        'validade',
     ];
 
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')->width(50)->height(50);
+    }
+
+    public function users()
+    {
+        $this->attributes['categoria_id'] = 'OK';
+        return $this->hasMany(User::class, 'id_profissional_id', 'id');
     }
 
     public function categoria()
@@ -77,13 +88,18 @@ class Profissional extends Model implements HasMedia
         $file = $this->getMedia('foto')->last();
 
         if ($file) {
-            $file->url = $file->getUrl();
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
         }
-
 
         return $file;
     }
-
+    public function getTipoAttribute()
+    {
+        $id = $this->attributes['categoria_id'];
+        $model = CategoriaProfissional::where('id',$id)->first();
+        return $model->nome;
+    }
     public function municipio()
     {
         return $this->belongsTo(Municipio::class, 'municipio_id');

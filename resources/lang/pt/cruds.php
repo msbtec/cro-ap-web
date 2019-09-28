@@ -63,6 +63,8 @@ return [
             'updated_at_helper'        => '',
             'deleted_at'               => 'Deleted at',
             'deleted_at_helper'        => '',
+            'id_profissional'          => 'Profissional',
+            'id_profissional_helper'   => '',
         ],
     ],
     'noticium'              => [

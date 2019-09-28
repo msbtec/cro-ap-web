@@ -16,11 +16,14 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-User">
                 <thead>
                     <tr>
                         <th width="10">
 
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.id') }}
                         </th>
                         <th>
                             {{ trans('cruds.user.fields.name') }}
@@ -35,6 +38,15 @@
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.id_profissional') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.profissional.fields.cro') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.profissional.fields.cpf') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -44,6 +56,9 @@
                         <tr data-entry-id="{{ $user->id }}">
                             <td>
 
+                            </td>
+                            <td>
+                                {{ $user->id ?? '' }}
                             </td>
                             <td>
                                 {{ $user->name ?? '' }}
@@ -58,6 +73,15 @@
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $user->id_profissional->nome ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->id_profissional->cro ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->id_profissional->cpf ?? '' }}
                             </td>
                             <td>
                                 @can('user_show')
@@ -129,7 +153,11 @@
     order: [[ 2, 'asc' ]],
     pageLength: 100,
   });
-  $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  $('.datatable-User:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
 })
 
 </script>

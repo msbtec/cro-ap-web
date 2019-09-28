@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Profissional;
 use App\Role;
 use App\User;
 use Gate;
@@ -29,7 +30,9 @@ class UsersController extends Controller
 
         $roles = Role::all()->pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        $id_profissionals = Profissional::all()->pluck('nome', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.users.create', compact('roles', 'id_profissionals'));
     }
 
     public function store(StoreUserRequest $request)
@@ -46,9 +49,11 @@ class UsersController extends Controller
 
         $roles = Role::all()->pluck('title', 'id');
 
-        $user->load('roles');
+        $id_profissionals = Profissional::all()->pluck('nome', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        $user->load('roles', 'id_profissional');
+
+        return view('admin.users.edit', compact('roles', 'id_profissionals', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -63,7 +68,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles');
+        $user->load('roles', 'id_profissional');
 
         return view('admin.users.show', compact('user'));
     }

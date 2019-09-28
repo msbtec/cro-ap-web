@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <div>
+        <div class="mb-2">
             <table class="table table-bordered table-striped">
                 <tbody>
                     <tr>
@@ -52,12 +52,22 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.id_profissional') }}
+                        </th>
+                        <td>
+                            {{ $user->id_profissional->nome ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">
                 {{ trans('global.back_to_list') }}
             </a>
         </div>
+
+
     </div>
 </div>
 @endsection

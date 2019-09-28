@@ -248,6 +248,8 @@
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
+
+
     </div>
 </div>
 @endsection

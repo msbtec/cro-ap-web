@@ -29,12 +29,14 @@ class UpdateProfissionalRequest extends FormRequest
                 'max:10',
                 'required',
             ],
+            'cpf'              => [
+                'min:0',
+                'max:25',
+                'required',
+            ],
             'categoria_id'     => [
                 'required',
                 'integer',
-            ],
-            'cpf'              => [
-                'required',
             ],
             'data_nascimento'  => [
                 'required',

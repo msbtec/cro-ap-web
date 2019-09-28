@@ -245,6 +245,7 @@ return [
     'y_axis_field'                         => 'Campo do eixo Y',
     'you_have_no_messages'                 => 'Você não possui nenhuma mensagem.',
     'content'                              => 'Content',
+    'no_alerts'                            => 'No alerts',
     'calendar'                             => 'Calendário',
     'messenger'                            => 'Messenger',
 ];

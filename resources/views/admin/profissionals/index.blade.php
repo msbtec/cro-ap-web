@@ -16,11 +16,14 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Profissional">
                 <thead>
                     <tr>
                         <th width="10">
 
+                        </th>
+                        <th>
+                            {{ trans('cruds.profissional.fields.id') }}
                         </th>
                         <th>
                             {{ trans('cruds.profissional.fields.nome') }}
@@ -59,6 +62,9 @@
                         <tr data-entry-id="{{ $profissional->id }}">
                             <td>
 
+                            </td>
+                            <td>
+                                {{ $profissional->id ?? '' }}
                             </td>
                             <td>
                                 {{ $profissional->nome ?? '' }}
@@ -165,7 +171,11 @@
     order: [[ 2, 'asc' ]],
     pageLength: 100,
   });
-  $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  $('.datatable-Profissional:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
 })
 
 </script>
