@@ -1,7 +1,4 @@
 <?php
-
-Route::redirect('/', '/login');
-Route::redirect('/home', '/admin');
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -57,12 +54,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Categoriaprofissionals
     Route::delete('categoria-profissionals/destroy', 'CategoriaProfissionalController@massDestroy')->name('categoria-profissionals.massDestroy');
     Route::resource('categoria-profissionals', 'CategoriaProfissionalController');
-            
+
     // Municipios
     Route::delete('municipios/destroy', 'MunicipioController@massDestroy')->name('municipios.massDestroy');
     Route::resource('municipios', 'MunicipioController');
-
-
 
         // Denuncia
     Route::delete('denuncia/destroy', 'DenunciaController@massDestroy')->name('denuncia.massDestroy');

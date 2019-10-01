@@ -1,23 +1,23 @@
 @extends('layouts.admin')
 @section('content')
-@can('municipio_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.municipios.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.municipio.title_singular') }}
-            </a>
+    @can('municipio_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.municipios.create") }}">
+                    {{ trans('global.add') }} {{ trans('cruds.municipio.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('cruds.municipio.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="card">
+        <div class="card-header">
+            {{ trans('cruds.municipio.title_singular') }} {{ trans('global.list') }}
+        </div>
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable">
-                <thead>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class=" table table-bordered table-striped table-hover datatable">
+                    <thead>
                     <tr>
                         <th width="10">
 
@@ -29,8 +29,8 @@
                             &nbsp;
                         </th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach($municipios as $key => $municipio)
                         <tr data-entry-id="{{ $municipio->id }}">
                             <td>
@@ -64,53 +64,53 @@
 
                         </tr>
                     @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 @section('scripts')
-@parent
-<script>
-    $(function () {
-  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('municipio_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-  let deleteButton = {
-    text: deleteButtonTrans,
-    url: "{{ route('admin.municipios.massDestroy') }}",
-    className: 'btn-danger',
-    action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
-      });
+    @parent
+    <script>
+        $(function () {
+            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+                @can('municipio_delete')
+            let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+            let deleteButton = {
+                text: deleteButtonTrans,
+                url: "{{ route('admin.municipios.massDestroy') }}",
+                className: 'btn-danger',
+                action: function (e, dt, node, config) {
+                    var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+                        return $(entry).data('entry-id')
+                    });
 
-      if (ids.length === 0) {
-        alert('{{ trans('global.datatables.zero_selected') }}')
+                    if (ids.length === 0) {
+                        alert('{{ trans('global.datatables.zero_selected') }}')
 
-        return
-      }
+                        return
+                    }
 
-      if (confirm('{{ trans('global.areYouSure') }}')) {
-        $.ajax({
-          headers: {'x-csrf-token': _token},
-          method: 'POST',
-          url: config.url,
-          data: { ids: ids, _method: 'DELETE' }})
-          .done(function () { location.reload() })
-      }
-    }
-  }
-  dtButtons.push(deleteButton)
-@endcan
+                    if (confirm('{{ trans('global.areYouSure') }}')) {
+                        $.ajax({
+                            headers: {'x-csrf-token': _token},
+                            method: 'POST',
+                            url: config.url,
+                            data: { ids: ids, _method: 'DELETE' }})
+                            .done(function () { location.reload() })
+                    }
+                }
+            }
+            dtButtons.push(deleteButton)
+            @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
-    order: [[ 2, 'asc' ]],
-    pageLength: 100,
-  });
-  $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-})
+            $.extend(true, $.fn.dataTable.defaults, {
+                order: [[ 2, 'asc' ]],
+                pageLength: 100,
+            });
+            $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+        })
 
-</script>
+    </script>
 @endsection
