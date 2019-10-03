@@ -71,4 +71,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Mensagems
     Route::delete('mensagems/destroy', 'MensagemController@massDestroy')->name('mensagems.massDestroy');
     Route::resource('mensagems', 'MensagemController');
+
+    // Slides
+    Route::resource('slide', 'SlidesController');
+
+    // Transparência
+    Route::resource('transparency','TransparencyController');
+    Route::resource('typetransparency','TypeTransparencyController');
+    Route::resource('filetransparency','FileTransparencyController');
 });

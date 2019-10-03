@@ -72,6 +72,12 @@
                         </ul>
                     </li>
                 @endcan
+                <li class="nav-item">
+                    <a href="{{ route("admin.slide.index") }}" class="nav-link">
+                        <i class="fa-fw far fa-newspaper"></i>
+                        <p><span>Slides</span></p>
+                    </a>
+                </li>
                 @can('noticium_access')
                     <li class="nav-item">
                         <a href="{{ route("admin.noticia.index") }}" class="nav-link {{ request()->is('admin/noticia') || request()->is('admin/noticia/*') ? 'active' : '' }}">
@@ -96,6 +102,30 @@
                         </a>
                     </li>
                 @endcan
+
+                <li class="nav-item has-treeview {{ request()->is('admin/typetransparency*') ? 'menu-open' : '' }} {{ request()->is('admin/transparency*') ? 'menu-open' : '' }} {{ request()->is('admin/filetransparency*') ? 'menu-open' : '' }}">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="fa-fw fas fa-users"></i>
+                        <p>
+                            <span>Transparência</span><i class="right fa fa-fw fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route("admin.typetransparency.index") }}" class="nav-link {{ request()->is('admin/typetransparency') || request()->is('admin/typetransparency/*') ? 'active' : '' }}">
+                                <i class="fa-fw fas fa-bars"></i>
+                                <p><span>Tipos</span></p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route("admin.transparency.index") }}" class="nav-link {{ request()->is('admin/transparency') || request()->is('admin/transparency/*') ? 'active' : '' || request()->is('admin/filetransparency/*') ? 'active' : '' }}">
+                                <i class="fa-fw fas fa-bars"></i>
+                                <p><span>Documentos</span></p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 @can('programa_de_parcerium_access')
                     <li class="nav-item has-treeview {{ request()->is('admin/categoria*') ? 'menu-open' : '' }} {{ request()->is('admin/parceiros*') ? 'menu-open' : '' }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
