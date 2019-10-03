@@ -71,7 +71,7 @@ class FileTransparencyController extends Controller
 
         FileTransparency::find($id)->update($data);
 
-        return redirect()->route('admin.transparency.show',$id);
+        return redirect()->route('admin.transparency.show',$request->transparency_id);
     }
 
 

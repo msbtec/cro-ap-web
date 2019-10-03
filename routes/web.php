@@ -1,4 +1,11 @@
 <?php
+View::composer(['*'],function ($view){
+    $view->with('total_contact_all',\App\Contact::whereTrash(false)->get());
+    $view->with('total_contact_read',\App\Contact::whereStatus(true)->whereTrash(false)->get());
+    $view->with('total_contact_noread',\App\Contact::whereStatus(false)->whereTrash(false)->get());
+    $view->with('total_contact_trash',\App\Contact::whereTrash(true)->get());
+});
+
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -79,4 +86,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('transparency','TransparencyController');
     Route::resource('typetransparency','TypeTransparencyController');
     Route::resource('filetransparency','FileTransparencyController');
+
+    //CONTATOS
+    Route::get('contact/all','ContactController@listAll')->name('contact.all');
+    Route::get('contact/read','ContactController@listRead')->name('contact.read');
+    Route::get('contact/noread','ContactController@listNoRead')->name('contact.noread');
+    Route::get('contact/trash','ContactController@listTrash')->name('contact.trash');
+    Route::get('contact/show/{id}','ContactController@show')->name('contact.show');
+    Route::get('contact/show/trash/{id}','ContactController@showtrash')->name('contact.show-trash');
+    Route::get('contact/trash/{id}','ContactController@trash')->name('contact.trashing');
+    Route::get('contact/notrash/{id}','ContactController@notrash')->name('contact.notrashing');
+    Route::get('contact/delete/{contact}','ContactController@destroy')->name('contact.destroy');
 });

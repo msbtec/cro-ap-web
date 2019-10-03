@@ -20,20 +20,6 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h5 class="m-0">Informações</h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">Tipo: {{ $transparency->type->name }}</h6>
-                            <h5 class="text-info">Nome de identificação: {{ $transparency->name }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
                     <div class="card card-success card-outline">
                         <div class="card-header">
                             <h5 class="m-0">Cadastrar conteúdo</h5>
@@ -58,6 +44,7 @@
                                             @if ($errors->has('file'))
                                                 <small class="form-text text-danger">{{ $errors->first('file') }}</small>
                                             @endif
+                                            {{ Form::hidden('transparency_id',$fileTransparency->transparency_id) }}
                                         </div>
                                     </div>
                                 </div>
