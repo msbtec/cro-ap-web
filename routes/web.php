@@ -4,6 +4,11 @@ View::composer(['*'],function ($view){
     $view->with('total_contact_read',\App\Contact::whereStatus(true)->whereTrash(false)->get());
     $view->with('total_contact_noread',\App\Contact::whereStatus(false)->whereTrash(false)->get());
     $view->with('total_contact_trash',\App\Contact::whereTrash(true)->get());
+
+    $view->with('total_complaint_all',\App\Complaint::whereTrash(false)->get());
+    $view->with('total_complaint_read',\App\Complaint::whereStatus(true)->whereTrash(false)->get());
+    $view->with('total_complaint_noread',\App\Complaint::whereStatus(false)->whereTrash(false)->get());
+    $view->with('total_complaint_trash',\App\Complaint::whereTrash(true)->get());
 });
 
 Auth::routes(['register' => false]);
@@ -82,6 +87,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Slides
     Route::resource('slide', 'SlidesController');
 
+    // Vídeos
+    Route::resource('video', 'VideoController');
+
     // Transparência
     Route::resource('transparency','TransparencyController');
     Route::resource('typetransparency','TypeTransparencyController');
@@ -97,4 +105,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('contact/trash/{id}','ContactController@trash')->name('contact.trashing');
     Route::get('contact/notrash/{id}','ContactController@notrash')->name('contact.notrashing');
     Route::get('contact/delete/{contact}','ContactController@destroy')->name('contact.destroy');
+
+    //DENUNCIAS
+    Route::get('complaint/all','ComplaintController@listAll')->name('complaint.all');
+    Route::get('complaint/read','ComplaintController@listRead')->name('complaint.read');
+    Route::get('complaint/noread','ComplaintController@listNoRead')->name('complaint.noread');
+    Route::get('complaint/trash','ComplaintController@listTrash')->name('complaint.trash');
+    Route::get('complaint/show/{id}','ComplaintController@show')->name('complaint.show');
+    Route::get('complaint/show/trash/{id}','ComplaintController@showtrash')->name('complaint.show-trash');
+    Route::get('complaint/trash/{id}','ComplaintController@trash')->name('complaint.trashing');
+    Route::get('complaint/notrash/{id}','ComplaintController@notrash')->name('complaint.notrashing');
+    Route::get('complaint/delete/{contact}','ComplaintController@destroy')->name('complaint.destroy');
 });

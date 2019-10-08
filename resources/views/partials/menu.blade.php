@@ -103,6 +103,28 @@
                     </li>
                 @endcan
 
+                <li class="nav-item">
+                    <a href="{{ route("admin.video.index") }}" class="nav-link {{ request()->is('admin/video') || request()->is('admin/video/*') ? 'active' : '' }}">
+                        <i class="fas fa-video"></i>
+                        <p><span>VÍDEOS</span></p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route("admin.contact.all") }}" class="nav-link {{ request()->is('admin/contact') || request()->is('admin/contact/*') ? 'active' : '' }}">
+                        <i class="fas fa-envelope"></i>
+                        <p><span>SIC</span></p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route("admin.complaint.all") }}" class="nav-link {{ request()->is('admin/complaint') || request()->is('admin/complaint/*') ? 'active' : '' }}">
+                        <i class="fas fa-envelope"></i>
+                        <p><span>DENÚNCIAS</span></p>
+                    </a>
+                </li>
+
+
                 <li class="nav-item has-treeview {{ request()->is('admin/typetransparency*') ? 'menu-open' : '' }} {{ request()->is('admin/transparency*') ? 'menu-open' : '' }} {{ request()->is('admin/filetransparency*') ? 'menu-open' : '' }}">
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="fa-fw fas fa-users"></i>

@@ -14,108 +14,27 @@ class ContactController extends Controller
     {
         $this->middleware('auth');
     }
-
-    public function apiContactAll(){
-        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false);
-
-        return Datatables::of($contacts)
-            ->editColumn('sender', function ($contacts) {
-                $read = $contacts->status == false ? "font-weight: bold" : "";
-                return "<a href='/admin/contact/show/".$contacts->id."'><span style='".$read."'>".$contacts->sender."</span></a>";
-            })
-            ->editColumn('subject', function ($contacts) {
-                $read = $contacts->status == false ? "font-weight: bold" : "";
-                return "<a href='/admin/contact/show/".$contacts->id."'><span style='".$read."'>".$contacts->subject."</span> ".$contacts->message."</a>";
-            })
-            ->editColumn('created_at', function ($contacts) {
-                $created = with(new Carbon($contacts->created_at))->diffForHumans();
-                return "<div class='text-center'><i class=\"fas fa-hourglass-start\"></i> ".$created."</div>";
-            })
-            ->rawColumns(['sender','created_at','action','subject'])
-            ->make(true);
-    }
-
-    public function apiContactRead(){
-        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false)->whereStatus(true);
-
-        return Datatables::of($contacts)
-            ->editColumn('sender', function ($contacts) {
-                $read = $contacts->status == false ? "font-weight: bold" : "";
-                return "<a href='/admin/contact/show/".$contacts->id."'><span style='".$read."'>".$contacts->sender."</span></a>";
-            })
-            ->editColumn('subject', function ($contacts) {
-                $read = $contacts->status == false ? "font-weight: bold" : "";
-                return "<a href='/admin/contact/show/".$contacts->id."'><span style='".$read."'>".$contacts->subject."</span> ".$contacts->message."</a>";
-            })
-            ->editColumn('created_at', function ($contacts) {
-                $created = with(new Carbon($contacts->created_at))->diffForHumans();
-                return "<div class='text-center'><i class=\"fas fa-hourglass-start\"></i> ".$created."</div>";
-            })
-            ->rawColumns(['sender','created_at','action','subject'])
-            ->make(true);
-    }
-
-    public function apiContactNoRead(){
-        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false)->whereStatus(false);
-
-        return Datatables::of($contacts)
-            ->editColumn('sender', function ($contacts) {
-                $read = $contacts->status == false ? "font-weight: bold" : "";
-                return "<a href='/admin/contact/show/".$contacts->id."'><span style='".$read."'>".$contacts->sender."</span></a>";
-            })
-            ->editColumn('subject', function ($contacts) {
-                $read = $contacts->status == false ? "font-weight: bold" : "";
-                return "<a href='/admin/contact/show/".$contacts->id."'><span style='".$read."'>".$contacts->subject."</span> ".$contacts->message."</a>";
-            })
-            ->editColumn('created_at', function ($contacts) {
-                $created = with(new Carbon($contacts->created_at))->diffForHumans();
-                return "<div class='text-center'><i class=\"fas fa-hourglass-start\"></i> ".$created."</div>";
-            })
-            ->rawColumns(['sender','created_at','action','subject'])
-            ->make(true);
-    }
-
-    public function apiContactTrash(){
-        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(true);
-
-        return Datatables::of($contacts)
-            ->editColumn('sender', function ($contacts) {
-                $read = $contacts->status == false ? "font-weight: bold" : "";
-                return "<a href='show/trash/".$contacts->id."'><span style='".$read."'>".$contacts->sender."</span></a>";
-            })
-            ->editColumn('subject', function ($contacts) {
-                $read = $contacts->status == false ? "font-weight: bold" : "";
-                return "<a href='show/trash/".$contacts->id."'><span style='".$read."'>".$contacts->subject."</span> ".$contacts->message."</a>";
-            })
-            ->editColumn('created_at', function ($contacts) {
-                $created = with(new Carbon($contacts->created_at))->diffForHumans();
-                return "<div class='text-center'><i class=\"fas fa-hourglass-start\"></i> ".$created."</div>";
-            })
-            ->rawColumns(['sender','created_at','subject'])
-            ->make(true);
-    }
-
     public function listAll()
     {
-        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false);
+        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false)->get();
         return view('admin.contact.list-all',compact('contacts'));
     }
 
     public function listRead()
     {
-        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false)->whereStatus(true);
+        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false)->whereStatus(true)->get();
         return view('admin.contact.list-read',compact('contacts'));
     }
 
     public function listNoRead()
     {
-        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false)->whereStatus(false);
+        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(false)->whereStatus(false)->get();
         return view('admin.contact.list-noread',compact('contacts'));
     }
 
     public function listTrash()
     {
-        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(true);
+        $contacts = Contact::orderBy('created_at','DESC')->whereTrash(true)->get();
         return view('admin.contact.list-trash',compact('contacts'));
     }
 
