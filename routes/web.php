@@ -1,4 +1,13 @@
 <?php
+
+Route::group(['namespace' => 'Site','as' => 'site.'],function(){
+    Route::get('/','HomeController@home')->name('home');
+    Route::post('/contato','HomeController@send')->name('contact.send');
+
+    Route::get('/schedule/details/{schedule}','ScheduleController@showSchedule');
+    Route::get('noticia/{slug}','HomeController@noticia')->name('noticia');
+});
+
 View::composer(['*'],function ($view){
     $view->with('total_contact_all',\App\Contact::whereTrash(false)->get());
     $view->with('total_contact_read',\App\Contact::whereStatus(true)->whereTrash(false)->get());
@@ -89,6 +98,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Vídeos
     Route::resource('video', 'VideoController');
+
+    // Agenda
+    Route::resource('schedule', 'ScheduleController');
 
     // Transparência
     Route::resource('transparency','TransparencyController');

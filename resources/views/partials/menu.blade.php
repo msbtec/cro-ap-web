@@ -111,6 +111,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route("admin.schedule.index") }}" class="nav-link {{ request()->is('admin/schedule') || request()->is('admin/schedule/*') ? 'active' : '' }}">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p><span>AGENDA</span></p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route("admin.contact.all") }}" class="nav-link {{ request()->is('admin/contact') || request()->is('admin/contact/*') ? 'active' : '' }}">
                         <i class="fas fa-envelope"></i>
                         <p><span>SIC</span></p>

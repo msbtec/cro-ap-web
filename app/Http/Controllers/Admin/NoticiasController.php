@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateNoticiumRequest;
 use App\Noticium;
 use Gate;
 use Illuminate\Http\Request;
+use Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class NoticiasController extends Controller
@@ -34,7 +35,10 @@ class NoticiasController extends Controller
 
     public function store(StoreNoticiumRequest $request)
     {
-        $noticium = Noticium::create($request->all());
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->titulo);
+
+        $noticium = Noticium::create($data);
 
         if ($request->input('foto_capa', false)) {
             $noticium->addMedia(storage_path('tmp/uploads/' . $request->input('foto_capa')))->toMediaCollection('foto_capa');

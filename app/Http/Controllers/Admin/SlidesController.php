@@ -29,11 +29,14 @@ class SlidesController extends Controller
     {
         $request->validate([
             'title'     => 'required',
-            'image'      => 'required|max:2048|image',
+            'subtitle'  => 'required',
+            'image'      => 'required|max:2048|image|dimensions:width=900,height=300',
 
         ], $message = [
             'title.required'    => 'Campo obrigatório',
+            'subtitle.required'    => 'Campo obrigatório',
             'image.required'    => 'Campo obrigatória',
+            'image.dimensions'  => 'Imagem deve ter 900 x 300 pixel',
         ]);
 
         $file = $request->file('image')->store('slides');
@@ -53,10 +56,13 @@ class SlidesController extends Controller
     {
         $request->validate([
             'title'     => 'required',
-            'image'     => 'max:2048|image',
+            'subtitle'  => 'required',
+            'image'     => 'max:2048|image|dimensions:width=900,height=300',
 
         ], $message = [
             'title.required'    => 'Campo obrigatório',
+            'subtitle.required'    => 'Campo obrigatório',
+            'image.dimensions'  => 'Imagem deve ter 900 x 300 pixel',
         ]);
 
         if($request->file('image')) {

@@ -24,6 +24,7 @@ class Noticium extends Model implements HasMedia
 
     protected $fillable = [
         'texto',
+        'slug',
         'ativo',
         'titulo',
         'resumo',
@@ -32,6 +33,7 @@ class Noticium extends Model implements HasMedia
         'deleted_at',
         'dt_publicacao',
     ];
+
 
     public function registerMediaConversions(Media $media = null)
     {
@@ -68,5 +70,10 @@ class Noticium extends Model implements HasMedia
         });
 
         return $files;
+    }
+
+    public function mediac()
+    {
+        return $this->belongsTo('App\Media','id','model_id');
     }
 }
