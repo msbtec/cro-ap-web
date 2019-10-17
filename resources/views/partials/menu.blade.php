@@ -106,28 +106,42 @@
                 <li class="nav-item">
                     <a href="{{ route("admin.video.index") }}" class="nav-link {{ request()->is('admin/video') || request()->is('admin/video/*') ? 'active' : '' }}">
                         <i class="fas fa-video"></i>
-                        <p><span>VÍDEOS</span></p>
+                        <p><span>Vídeos</span></p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{ route("admin.schedule.index") }}" class="nav-link {{ request()->is('admin/schedule') || request()->is('admin/schedule/*') ? 'active' : '' }}">
                         <i class="fas fa-calendar-alt"></i>
-                        <p><span>AGENDA</span></p>
+                        <p><span>Agenda</span></p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route("admin.contact.all") }}" class="nav-link {{ request()->is('admin/contact') || request()->is('admin/contact/*') ? 'active' : '' }}">
+                    <a href="{{ route("admin.album.index") }}" class="nav-link {{ request()->is('admin/album') || request()->is('admin/album/*') ? 'active' : '' }}">
+                        <i class="far fa-images"></i>
+                        <p><span>Galeria de fotos</span></p>
+                    </a>
+                </li>
+
+{{--                <li class="nav-item">--}}
+{{--                    <a href="{{ route("admin.contact.all") }}" class="nav-link {{ request()->is('admin/contact') || request()->is('admin/contact/*') ? 'active' : '' }}">--}}
+{{--                        <i class="fas fa-envelope"></i>--}}
+{{--                        <p><span>SIC</span></p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+
+                <li class="nav-item">
+                    <a href="{{ route("admin.inspection.all") }}" class="nav-link {{ request()->is('admin/inspection') || request()->is('admin/inspection/*') ? 'active' : '' }}">
                         <i class="fas fa-envelope"></i>
-                        <p><span>SIC</span></p>
+                        <p><span>Fiscalização</span></p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{ route("admin.complaint.all") }}" class="nav-link {{ request()->is('admin/complaint') || request()->is('admin/complaint/*') ? 'active' : '' }}">
                         <i class="fas fa-envelope"></i>
-                        <p><span>DENÚNCIAS</span></p>
+                        <p><span>Denúncias</span></p>
                     </a>
                 </li>
 

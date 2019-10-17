@@ -40,7 +40,7 @@
                         </div>
                         <div class="card-body">
                             {!! Form::open(['route' => 'admin.filetransparency.store','files' => true]) !!}
-                            <div class="card-body">
+
                                 <div class="row">
                                     <div class="col-sm-6 mb-3">
                                         {!! Form::label('name', 'Nome do documento'); !!}
@@ -62,12 +62,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-success btn-flat"><i class="fas fa-save"></i> Cadastrar</button>
-                                <a href="{{ route('admin.transparency.index') }}" class="btn btn-warning btn-flat"><i class="fas fa-hand-point-left"></i> Retornar</a>
-                            </div>
+                            <button type="submit" class="btn btn-success btn-flat"><i class="fas fa-save"></i> Cadastrar</button>
+                            <a href="{{ route('admin.transparency.index') }}" class="btn btn-warning btn-flat"><i class="fas fa-hand-point-left"></i> Retornar</a>
                             {!! Form::close() !!}
                         </div>
                     </div>

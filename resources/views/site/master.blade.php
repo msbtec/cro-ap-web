@@ -31,8 +31,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+                    <i class="fas fa-map-marker-alt"></i> Amapá - AP <i class="fas fa-phone ml-3"></i> (96) 3223-9409 <i class="far fa-envelope ml-3"></i> secretaria@croap.org.br
                     <div class="float-right">
-                        <i class="fas fa-phone"></i> (96) 3223-9409 <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -63,21 +64,13 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item"><a class="nav-link" href="#">Sobre o conselho</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Notícias</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Fotos e eventos</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Profissionais inscritos</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Fiscalização</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Agenda</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Transparência</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="#">Fale conosco</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('site.noticias') }}">Notícias</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('site.galerias') }}">Fotos e eventos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('site.profissional') }}">Profissionais inscritos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('site.fiscalizacao') }}">Fiscalização</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('site.schedules') }}">Agenda</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('site.transparency.index') }}">Transparência</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#contato">Fale conosco</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -105,12 +98,44 @@
                     Endereço: Av. Antônio Coelho de Carvalho, Nº 2487 - Santa Rita - Macapá - AP<br/>
                     Horário de funcionamento: De Seg. à Sext. das 08:00 às 14:00<br/>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7" id="contato">
                     <h5 class="titulos mb-3">Fale conosco</h5>
-                    {!! Form::open(['route' => 'site.contact.send']) !!}
-                    @include('site.forms.contact')
+                    {!! Form::open(['route' => 'site.contact']) !!}
+                    <div class="has-feedback {{ $errors->has('namec') ? 'has-error' : '' }} form-group">
+                        {!! Form::text('namec',null,['class' => 'form-control form-control-sm', 'autofocus' => $errors->has('namec') ? 'autofocus' : null, 'placeholder' => 'Nome completo']) !!}
+                        @if ($errors->has('namec'))
+                            <span class="help-block yellow">{{ $errors->first('namec') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="has-feedback {{ $errors->has('subjectc') ? 'has-error' : '' }} form-group">
+                        {!! Form::text('subjectc',null,['class' => 'form-control form-control-sm', 'autofocus' => $errors->has('subjectc') ? 'autofocus' : null,'placeholder' => 'Assunto']) !!}
+                        @if ($errors->has('subjectc'))
+                            <span class="help-block yellow">{{ $errors->first('subjectc') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="has-feedback {{ $errors->has('emailc') ? 'has-error' : '' }} form-group">
+                        {!! Form::email('emailc',null,['class' => 'form-control form-control-sm', 'autofocus' => $errors->has('emailc') ? 'autofocus' : null,'placeholder' => 'E-mail']) !!}
+                        @if ($errors->has('emailc'))
+                            <span class="help-block yellow">{{ $errors->first('emailc') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="has-feedback {{ $errors->has('messagemc') ? 'has-error' : '' }} mb-3">
+                        {!! Form::textarea('messagemc',null,['class' => 'form-control form-control-sm', 'name'=> 'messagemc', 'rows' => '5', 'autofocus' => $errors->has('messagemc') ? 'autofocus' : null,'placeholder' => 'Mensagem']) !!}
+                        @if ($errors->has('messagemc'))
+                            <span class="help-block yellow">{{ $errors->first('messagemc') }}</span>
+                        @endif
+                    </div>
+
+                    {!! app('captcha')->display() !!}
+                    @if ($errors->has('g-recaptcha-response'))
+                        <span class="help-block yellow">{{ $errors->first('g-recaptcha-response') }}</span>
+                    @endif
+
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-danger btn-sm btn-flat mt-3">Enviar Contato</button>
+                        <button type="submit" class="btn btn-danger btn-sm btn-flat mt-3">Enviar formulário</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -135,5 +160,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 @stack('js')
+@include('sweetalert::alert')
+{!! NoCaptcha::renderJs() !!}
 </body>
 </html>

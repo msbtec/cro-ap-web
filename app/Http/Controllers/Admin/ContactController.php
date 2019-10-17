@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contact;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\View;
 
 class ContactController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        View::share('total_contact_all',Contact::whereTrash(false)->get());
+        View::share('total_contact_read',Contact::whereStatus(true)->whereTrash(false)->get());
+        View::share('total_contact_noread',Contact::whereStatus(false)->whereTrash(false)->get());
+        View::share('total_contact_trash',Contact::whereTrash(true)->get());
     }
     public function listAll()
     {
@@ -67,7 +69,7 @@ class ContactController extends Controller
     public function destroy(Contact $contact)
     {
         $contact->delete();
-        return redirect()->route('admin.contact.all');
+        return redirect()->route('admin.contact.trash');
     }
 
 

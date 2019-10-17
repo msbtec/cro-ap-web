@@ -1,26 +1,38 @@
 <?php
+Auth::routes(['register' => false]);
 
 Route::group(['namespace' => 'Site','as' => 'site.'],function(){
     Route::get('/','HomeController@home')->name('home');
-    Route::post('/contato','HomeController@send')->name('contact.send');
 
-    Route::get('/schedule/details/{schedule}','ScheduleController@showSchedule');
+    Route::post('contato','HomeController@send')->name('contact.send');
+
+    Route::get('transparencia','TransparencyController@index')->name('transparency.index');
+    Route::get('transparencia/{name}/{slug}','TransparencyController@show')->name('transparency.show');
+
+    Route::get('schedule/details/{schedule}','ScheduleController@showSchedule');
+    Route::get('agendas','ScheduleController@schedules')->name('schedules');
+
     Route::get('noticia/{slug}','HomeController@noticia')->name('noticia');
+    Route::get('noticias','HomeController@noticias')->name('noticias');
+
+    Route::get('galeria/{slug}','GalleryController@show')->name('galeria');
+    Route::get('galerias','GalleryController@index')->name('galerias');
+
+    Route::get('videos','HomeController@videos')->name('videos');
+
+    Route::get('profissionais-cadastrados','ProfessionalController@index')->name('profissional');
+
+    Route::get('fiscalizacao','FiscalizacaoController@index')->name('fiscalizacao');
+    Route::post('fiscalizacao','FiscalizacaoController@store')->name('fiscalizacao.store');
+
+    Route::get('denuncia','DenunciaController@index')->name('denuncia');
+    Route::post('denuncia','DenunciaController@store')->name('denuncia.store');
+
+    Route::post('contato/enviar','HomeController@contact')->name('contact');
+
+    Route::view('perguntas-frequentes','site.duvidas.list');
+
 });
-
-View::composer(['*'],function ($view){
-    $view->with('total_contact_all',\App\Contact::whereTrash(false)->get());
-    $view->with('total_contact_read',\App\Contact::whereStatus(true)->whereTrash(false)->get());
-    $view->with('total_contact_noread',\App\Contact::whereStatus(false)->whereTrash(false)->get());
-    $view->with('total_contact_trash',\App\Contact::whereTrash(true)->get());
-
-    $view->with('total_complaint_all',\App\Complaint::whereTrash(false)->get());
-    $view->with('total_complaint_read',\App\Complaint::whereStatus(true)->whereTrash(false)->get());
-    $view->with('total_complaint_noread',\App\Complaint::whereStatus(false)->whereTrash(false)->get());
-    $view->with('total_complaint_trash',\App\Complaint::whereTrash(true)->get());
-});
-
-Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -80,7 +92,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('municipios/destroy', 'MunicipioController@massDestroy')->name('municipios.massDestroy');
     Route::resource('municipios', 'MunicipioController');
 
-        // Denuncia
+    // Denuncia
     Route::delete('denuncia/destroy', 'DenunciaController@massDestroy')->name('denuncia.massDestroy');
     Route::resource('denuncia', 'DenunciaController');
 
@@ -101,6 +113,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Agenda
     Route::resource('schedule', 'ScheduleController');
+
+    //Album
+    Route::resource('album','AlbumController');
+    Route::resource('gallery','GalleryController');
 
     // Transparência
     Route::resource('transparency','TransparencyController');
@@ -128,4 +144,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('complaint/trash/{id}','ComplaintController@trash')->name('complaint.trashing');
     Route::get('complaint/notrash/{id}','ComplaintController@notrash')->name('complaint.notrashing');
     Route::get('complaint/delete/{contact}','ComplaintController@destroy')->name('complaint.destroy');
+
+    //FISCALIZAÇÃO
+    Route::get('inspection/all','InspectionController@listAll')->name('inspection.all');
+    Route::get('inspection/read','InspectionController@listRead')->name('inspection.read');
+    Route::get('inspection/noread','InspectionController@listNoRead')->name('inspection.noread');
+    Route::get('inspection/trash','InspectionController@listTrash')->name('inspection.trash');
+    Route::get('inspection/show/{id}','InspectionController@show')->name('inspection.show');
+    Route::get('inspection/show/trash/{id}','InspectionController@showtrash')->name('inspection.show-trash');
+    Route::get('inspection/trash/{id}','InspectionController@trash')->name('inspection.trashing');
+    Route::get('inspection/notrash/{id}','InspectionController@notrash')->name('inspection.notrashing');
+    Route::get('inspection/delete/{inspection}','InspectionController@destroy')->name('inspection.destroy');
 });

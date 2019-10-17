@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h5 class="m-0 text-dark"><i class="nav-icon fas fa-envelope"></i> DENÚNCIAS</h5>
+                    <h5 class="m-0 text-dark"><i class="nav-icon fas fa-envelope"></i> Denúncias</h5>
                 </div>
             </div>
         </div>
@@ -61,8 +61,8 @@
                                 <table id="tabela" class="table table-hover table-bordered table-striped td-action">
                                     <thead>
                                     <tr>
-                                        <th>Remetente</th>
-                                        <th>Mensagem</th>
+                                        <th>Denunciante</th>
+                                        <th>Denunciado</th>
                                         <th class="text-center"></th>
                                     </tr>
                                     </thead>
@@ -70,8 +70,8 @@
                                     @foreach($complaints as $complaint)
                                         @php $created = with(new Carbon\Carbon($complaint->created_at))->diffForHumans() @endphp
                                         <tr>
-                                            <td><a href='/admin/contact/show/{{ $complaint->id }}'><span>{{ $complaint->sender }}</span></a></td>
-                                            <td><a href='/admin/contact/show/{{ $complaint->id }}'><span>{{ $complaint->subject }}</span>{{  $complaint->message }}</a></td>
+                                            <td><a href='/admin/complaint/show/trash/{{ $complaint->id }}'><span>{{ $complaint->name_2 }}</span></a></td>
+                                            <td><a href='/admin/complaint/show/trash/{{ $complaint->id }}'><span>{{ $complaint->name_1 }}</span></a></td>
                                             <td class="text-center"><i class="fas fa-hourglass-start"></i> {{ $created }}
                                             </td>
                                         </tr>

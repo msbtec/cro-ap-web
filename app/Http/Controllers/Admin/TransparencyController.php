@@ -8,6 +8,7 @@ use App\TypeTransparency;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class TransparencyController extends Controller
@@ -38,7 +39,7 @@ class TransparencyController extends Controller
             ]);
 
         $data = $request->all();
-
+        $data['slug'] = Str::slug($request->name);
         Transparency::create($data);
         return redirect()->route('admin.transparency.index');
     }
@@ -70,7 +71,7 @@ class TransparencyController extends Controller
 
 
         $data = $request->all();
-
+        $data['slug'] = Str::slug($request->name);
         Transparency::find($id)->update($data);
         return redirect()->route('admin.transparency.index');
     }

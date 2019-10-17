@@ -3,9 +3,25 @@
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.css') }}">
+    <link rel="stylesheet" href="{{ asset("css/youtube.css") }}">
 @endpush
 
 @section('content')
+    <!-- Modal Videos -->
+    <div class="modal fade" id="youtubeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="videoModalContainer">
+
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                    <button id="CloseModalButton" type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fechar Janela</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Agenda -->
     <div class="modal fade" id="ModalSchedule" tabindex="-1" role="dialog" aria-labelledby="scheduleLabel" aria-hidden="true">
@@ -70,7 +86,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <a href="#" class="btn btn-dark btn-sm">Todos os eventos</a>
+                <a href="{{ route('site.schedules') }}" class="btn btn-dark btn-sm">Todos os eventos</a>
             </div>
         </div>
     </div>
@@ -131,9 +147,8 @@
         </div>
         <div class="row">
             @foreach($noticias as $noticia)
-
-                    <div class="col-md-3">
-                        <a href="{{ route('site.noticia',$noticia->slug) }}">
+                <div class="col-md-3">
+                    <a href="{{ route('site.noticia',$noticia->slug) }}">
                         <div class="card">
                             <div class="card-header">
                                 <img src="/storage/{{ $noticia->mediac->id ."/". $noticia->mediac->file_name }}" class="img-fluid img-thumbnail" alt="Notícia">
@@ -142,12 +157,11 @@
                                 <div class="resumo">{{ $noticia->resumo }}</div>
                             </div>
                         </div>
-                        </a>
-                    </div>
-
+                    </a>
+                </div>
             @endforeach
             <div class="col-md-12 my-3">
-                <a href="#" class="btn btn-dark btn-sm">Todos as notícias</a>
+                <a href="{{ route('site.noticias') }}" class="btn btn-dark btn-sm">Todos as notícias</a>
             </div>
         </div>
     </div>
@@ -158,20 +172,34 @@
     <div class="container-fluid py-5" id="atalhos">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 text-center">
-                    <img src="{{ asset('image/spy.png') }}" class="img-fluid mb-3" alt="Fiscalização">
-                    <h5 class="titulos_sub">e-Sic Fiscalização</h5>
-                    A fiscalização é um instrumento de proteção à sociedade.
+                <div class="col-md-4">
+                    <a href="{{ route('site.fiscalizacao') }}">
+                        <div class="text-center">
+                            <img src="{{ asset('image/spy.png') }}" class="img-fluid mb-3" alt="Fiscalização">
+                            <h5 class="titulos_sub">e-Sic Fiscalização</h5>
+                            A fiscalização é um instrumento de proteção à sociedade.
+                        </div>
+                    </a>
                 </div>
-                <div class="col-md-4 text-center">
-                    <img src="{{ asset('image/trans.png') }}" class="img-fluid mb-3" alt="Transparência">
-                    <h5 class="titulos_sub">Portal da transparência</h5>
-                    Espaço dedicado a oferecer dados oficiais da Administração Pública para a livre consulta e informação dos cidadãos.
+
+                <div class="col-md-4">
+                    <a href="{{ route('site.transparency.index') }}">
+                        <div class="text-center">
+                            <img src="{{ asset('image/trans.png') }}" class="img-fluid mb-3" alt="Transparência">
+                            <h5 class="titulos_sub">Portal da transparência</h5>
+                            Espaço dedicado a oferecer dados oficiais da Administração Pública para a livre consulta e informação dos cidadãos.
+                        </div>
+                    </a>
                 </div>
-                <div class="col-md-4 text-center">
-                    <img src="{{ asset('image/duvidas.png') }}" class="img-fluid mb-3" alt="Dúvidas frequentes">
-                    <h5 class="titulos_sub">Dúvidas frequentes</h5>
-                    Pensando em esclarecer e informar, a Comissão preparou essas perguntas e respostas sobre as principais consultas jurídicas.
+
+                <div class="col-md-4">
+                    <a href="perguntas-frequentes">
+                        <div class="text-center">
+                            <img src="{{ asset('image/duvidas.png') }}" class="img-fluid mb-3" alt="Dúvidas frequentes">
+                            <h5 class="titulos_sub">Dúvidas frequentes</h5>
+                            Pensando em esclarecer e informar, a Comissão preparou essas perguntas e respostas sobre as principais consultas jurídicas.
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -191,46 +219,19 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="owl-carousel owl-theme">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <img src="https://picsum.photos/id/800/600/400" class="img-thumbnail img-fluid" alt="foto">
-                                        <div class="data">09 nov 2019</div>
-                                        <div class="titulo">Novos conselheiros assumem a diretoria</div>
-                                    </div>
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body">
-                                        <img src="https://picsum.photos/id/805/600/400" class="img-thumbnail img-fluid" alt="foto">
-                                        <div class="data">09 nov 2019</div>
-                                        <div class="titulo">Novos conselheiros assumem a diretoria</div>
-                                    </div>
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body">
-                                        <img src="https://picsum.photos/id/802/600/400" class="img-thumbnail img-fluid" alt="foto">
-                                        <div class="data">09 nov 2019</div>
-                                        <div class="titulo">Novos conselheiros assumem a diretoria</div>
-                                    </div>
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body">
-                                        <img src="https://picsum.photos/id/803/600/400" class="img-thumbnail img-fluid" alt="foto">
-                                        <div class="data">09 nov 2019</div>
-                                        <div class="titulo">Novos conselheiros assumem a diretoria</div>
-                                    </div>
-                                </div>
-
-                                <div class="card">
-                                    <div class="card-body">
-                                        <img src="https://picsum.photos/id/803/600/400" class="img-thumbnail img-fluid" alt="foto">
-                                        <div class="data">09 nov 2019</div>
-                                        <div class="titulo">Novos conselheiros assumem a diretoria</div>
-                                    </div>
-                                </div>
+                                @foreach($album as $a)
+                                    <a href="{{ route('site.galeria',$a->slug) }}">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img src="{{ Storage::url($a->image) }}" class="img-thumbnail img-fluid" alt="foto">
+                                                <div class="data">{{ $a->date->formatLocalized('%d %b de %Y') }}</div>
+                                                <div class="titulo">{{ $a->name }}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
                             </div>
+                            <a href="{{ route('site.galerias') }}" class="btn btn-sm btn-dark mt-4">Ver todos</a>
                         </div>
                     </div>
                 </div>
@@ -238,8 +239,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h5 class="titulos_sub mb-4">Vídeos</h5>
-                            <img src="https://img.youtube.com/vi/xXMIqK5LdLE/mqdefault.jpg" class="img-fluid img-thumbnail" alt="video">
-                            <div class="titulo">Entrevista com DR Nazareno Ávila presidente do CRO no Amapá G1 Amapá Amapá TV.</div>
+                            @foreach($video as $v)
+                                <div class="thumbnail">
+                                    <div  id="{{ $v->cod }}" class="youtubeVideoLoader"></div>
+                                    <div class="caption">
+                                        <div class="descricao">{{ $v->name }}</div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <a href="{{ route('site.videos') }}" class="btn btn-sm btn-dark">Todos os vídeos</a>
                         </div>
                     </div>
                 </div>
@@ -266,6 +274,7 @@
 
 @push('js')
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script defer src="{{ asset("js/youtube.js") }}"></script>
     <script>
         //CAROULSEL
         $('.owl-carousel').owlCarousel({

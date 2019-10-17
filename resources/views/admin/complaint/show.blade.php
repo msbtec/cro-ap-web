@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h5 class="m-0 text-dark"><i class="nav-icon fas fa-envelope"></i> DENÚNCIAS</h5>
+                    <h5 class="m-0 text-dark"><i class="nav-icon fas fa-envelope"></i> Denúncias</h5>
                 </div>
             </div>
         </div>
@@ -52,20 +52,23 @@
                 <div class="col-md-9" id="contato">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="m-0"><i class="fas fa-book-reader"></i> Leitura <span class="float-right"><a href="{{ route('admin.contact.all') }}" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-hand-point-left"></i> Retornar</a> <a href="{{ route('admin.contact.trashing',$contact->id) }}" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash-alt"></i> Mover para lixeira</a></span></h5>
+                            <h5 class="m-0"><i class="fas fa-book-reader"></i> Leitura <span class="float-right"><a href="{{ route('admin.complaint.all') }}" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-hand-point-left"></i> Retornar</a> <a href="{{ route('admin.complaint.trashing',$complaint->id) }}" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash-alt"></i> Mover para lixeira</a></span></h5>
                         </div>
                         <div class="card-body">
                             <div class="mailbox-read-info">
-                                <h5>{{ $contact->sender }}</h5>
-                                <div class="small text-success">CPF: {{ $contact->cpf }} -  Data de nascimento: {{ $contact->birth }}</div>
-                                <span class="text-muted">E-mail: {{ $contact->email }} <span class="mailbox-read-time float-right text-capitalize">{{ Date::parse($contact->created_at)->format('l j F Y')  }} - {{ Date::parse($contact->created_at)->format('H:i') }}h</span></span>
-                                <div class="text-muted">Telefone: {{ $contact->phone }}</div>
+                                <span class="mailbox-read-time float-right text-capitalize">{{ Date::parse($complaint->created_at)->format('l j F Y')  }} - {{ Date::parse($complaint->created_at)->format('H:i') }}h</span>
+                                <h5>Denunciado: {{ $complaint->name_1 }}</h5>
+                                <div class="text-muted">CRO do denunciado: {{ $complaint->cro_1 }}</div>
+                                <hr>
+                                <h5>Denunciante: {{ $complaint->name_2 }}</h5>
+                                <div class="text-muted">E-mail: {{ $complaint->email_2 }} - Telefone: {{ $complaint->telefone_2 }}</div>
+                                <div class="mt-3">Local da denúncia: {{ $complaint->local }} </div>
                             </div>
                             <div class="mailbox-read-message">
-                                <strong>Mensagem</strong>
-                                <p>{{ $contact->message }}</p>
+                                <strong>Denúncia</strong>
+                                <p>{{ $complaint->message }}</p>
                                 <hr>
-                                <div class="text-info small"><strong>Lido pela última vez:</strong> {{ Date::parse($contact->updated_at)->format('l j F Y')  }} - {{ Date::parse($contact->updated_at)->format('H:i')  }}h </div>
+                                <div class="text-info small"><strong>Lido pela última vez:</strong> {{ Date::parse($complaint->updated_at)->format('l j F Y')  }} - {{ Date::parse($complaint->updated_at)->format('H:i')  }}h </div>
                             </div>
                         </div>
                     </div>

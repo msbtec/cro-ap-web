@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Complaint;
+use App\Contact;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 use Yajra\DataTables\DataTables;
 
 class ComplaintController extends Controller
@@ -13,6 +15,10 @@ class ComplaintController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        View::share('total_complaint_all',Complaint::whereTrash(false)->get());
+        View::share('total_complaint_read',Complaint::whereStatus(true)->whereTrash(false)->get());
+        View::share('total_complaint_noread',Complaint::whereStatus(false)->whereTrash(false)->get());
+        View::share('total_complaint_trash',Complaint::whereTrash(true)->get());
     }
 
     public function listAll()
@@ -68,7 +74,7 @@ class ComplaintController extends Controller
     public function destroy(Complaint $complaint)
     {
         $complaint->delete();
-        return redirect()->route('admin.complaint.all');
+        return redirect()->route('admin.complaint.trash');
     }
 
 
